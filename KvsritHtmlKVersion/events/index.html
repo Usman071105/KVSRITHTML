@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Events - KVSRIT</title>
+    <meta name="description"
+        content="Stay updated with the latest happenings, workshops, and cultural fests at KVSRIT.">
+    <!-- Converted CSS (Tailwind to pure CSS) -->
+    <link rel="stylesheet" href="../css/core.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/navbar-enhanced.css">
+
+    <!-- Lucide Icons -->
+
+</head>
+
+<body>
+    <div id="app">
+        <!-- Header Injected Here -->
+        <div id="navbar-placeholder"></div>
+
+        <main>
+            <div class="min-h-screen bg-gray-50 py-12">
+                <div class="container mx-auto px-4">
+                    <div class="text-center mb-16">
+                        <h1 class="text-4xl font-bold text-gray-900 mb-4">Upcoming Events</h1>
+                        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                            Stay updated with the latest happenings, workshops, and cultural fests at KVSRIT.
+                        </p>
+                    </div>
+
+                    <div id="events-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Events populated via JS -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer Injected Here -->
+    </div>
+
+    <!-- Core Scripts -->
+    <script src="../assets/js/data.js"></script>
+    <script src="../assets/js/components.js"></script>
+    <script>window.rootPath = '../';</script>
+    <script src="../assets/js/main.js"></script>
+
+    <!-- Page Specific Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const eventsGrid = document.getElementById('events-grid');
+            const events = window.APP_DATA.events || [];
+
+            if (events.length === 0) {
+                eventsGrid.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <p class="text-gray-500 text-lg">No upcoming events at the moment.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            eventsGrid.innerHTML = events.map(event => `
+                <a href="events-details.html?id=${event.id}" class="group bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full border border-gray-100">
+                    <div class="h-48 bg-gray-200 relative">
+                        ${event.thumbnail ?
+                    `<img src="${event.thumbnail}" alt="${event.title}" class="w-full h-full object-cover">` :
+                    `<div class="absolute inset-0 flex items-center justify-center text-gray-400 font-medium bg-gray-100">No Image Available</div>`
+                }
+                        <div class="absolute top-4 left-4 bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded shadow-sm">
+                            ${event.category}
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex items-center text-sm text-gray-500 mb-3 gap-4">
+                            <div class="flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                                ${event.date}
+                            </div>
+                            <div class="flex items-center gap-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                                ${event.time}
+                            </div>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
+                            ${event.title}
+                        </h3>
+                        
+                        <div class="flex items-center text-gray-500 text-sm mb-4">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 mr-1"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                           ${event.venue}
+                        </div>
+
+                        <p class="text-gray-600 text-sm line-clamp-3 mb-6 flex-1">
+                            ${event.description}
+                        </p>
+                        
+                        <div class="text-blue-600 font-medium flex items-center mt-auto">
+                            View Details <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        </div>
+                    </div>
+                </a>
+            `).join('');
+
+            // Re-initialize icons for dynamic content
+
+        });
+    </script>
+</body>
+
+</html>
