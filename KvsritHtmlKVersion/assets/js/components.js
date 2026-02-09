@@ -355,12 +355,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const isStudentPortal = /\/student-portal\//.test(normalizedPath);
 
       const isCourses = /\/courses\//.test(normalizedPath);
+      const isVisionMission = /\/vision-mission-quality-policy\//.test(normalizedPath);
+      const isAffiliation = /\/affiliation-and-accreditation\//.test(normalizedPath);
 
       // Multi-level nesting check (e.g. departments/cse/index.html)
       const deptMatch = normalizedPath.match(/\/departments\/([^\/]+)\//);
       if (deptMatch) return '../../';
 
-      if (isDept || isAbout || isAcademics || isCampus || isPlacements || isStudentPortal || isCourses) {
+      if (isDept || isAbout || isAcademics || isCampus || isPlacements || isStudentPortal || isCourses || isVisionMission || isAffiliation) {
         return '../';
       }
       return './';
